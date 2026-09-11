@@ -22,13 +22,12 @@
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 24px;
-      padding: 40px 32px;
+      padding: 36px 28px;
       width: 100%;
       max-width: 440px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 24px;
+      gap: 20px;
     }
     .badge {
       background: rgba(69,197,190,0.15);
@@ -40,39 +39,58 @@
       color: #45C5BE;
       letter-spacing: 0.14em;
       text-transform: uppercase;
+      width: fit-content;
     }
     h1 {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.5rem, 5vw, 2rem);
+      font-size: clamp(1.3rem, 5vw, 1.7rem);
       color: white;
-      text-align: center;
       line-height: 1.25;
       font-weight: 400;
     }
-    .divider {
-      width: 48px;
-      height: 3px;
-      background: #45C5BE;
-      border-radius: 2px;
+    .divider { width: 40px; height: 3px; background: #45C5BE; border-radius: 2px; }
+    .hint {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.55;
+    }
+    .fields { display: flex; flex-direction: column; gap: 10px; }
+    .field-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .field-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(69,197,190,0.12);
+      border: 1.5px solid rgba(69,197,190,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #45C5BE;
     }
     input[type="text"] {
-      width: 100%;
+      flex: 1;
       background: rgba(255,255,255,0.07);
-      border: 1.5px solid rgba(255,255,255,0.15);
-      border-radius: 12px;
-      padding: 16px 18px;
+      border: 1.5px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 13px 14px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       color: white;
       outline: none;
       transition: border 0.2s;
-      text-align: center;
     }
-    input[type="text"]::placeholder { color: rgba(255,255,255,0.3); }
+    input[type="text"]::placeholder { color: rgba(255,255,255,0.25); }
     input[type="text"]:focus { border-color: #45C5BE; }
     button {
       width: 100%;
-      padding: 16px;
+      padding: 15px;
       background: #45C5BE;
       color: #0C2D4E;
       border: none;
@@ -93,42 +111,39 @@
       text-align: center;
     }
     .check {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
+      width: 64px; height: 64px; border-radius: 50%;
       background: rgba(69,197,190,0.15);
       border: 2px solid #45C5BE;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
     }
-    .success h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.6rem;
-      color: white;
-      font-weight: 400;
-    }
+    .success h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: white; font-weight: 400; }
     .success p { font-size: 0.85rem; color: rgba(255,255,255,0.45); line-height: 1.6; }
-    .otro-btn {
-      margin-top: 8px;
-      background: transparent;
-      color: #45C5BE;
-      border: 1.5px solid rgba(69,197,190,0.4);
-      padding: 12px 24px;
-      width: auto;
-      border-radius: 100px;
-      font-size: 0.8rem;
-    }
   </style>
 </head>
 <body>
 
   <div class="card" id="formCard">
-    <div class="badge">Lluvia de ideas</div>
+    <div class="badge">Actividad en vivo</div>
     <h1>¿Qué aspectos notas cuando vas a un restaurante?</h1>
     <div class="divider"></div>
-    <input type="text" id="input" placeholder="Escribe una palabra o frase..." maxlength="500" autocomplete="off" />
-    <button id="btn" onclick="enviar()">Enviar</button>
+    <p class="hint">Escribe 3 aspectos que notes — pueden ser positivos o negativos. Una palabra o frase corta.</p>
+
+    <div class="fields">
+      <div class="field-row">
+        <div class="field-num">1</div>
+        <input type="text" id="r1" placeholder="Ej: que te saluden al entrar..." maxlength="120" autocomplete="off" />
+      </div>
+      <div class="field-row">
+        <div class="field-num">2</div>
+        <input type="text" id="r2" placeholder="Ej: el tiempo de espera..." maxlength="120" autocomplete="off" />
+      </div>
+      <div class="field-row">
+        <div class="field-num">3</div>
+        <input type="text" id="r3" placeholder="Ej: la actitud del mesero..." maxlength="120" autocomplete="off" />
+      </div>
+    </div>
+
+    <button id="btn" onclick="enviar()">Enviar mis respuestas</button>
   </div>
 
   <div class="card success" id="successCard">
@@ -138,40 +153,47 @@
       </svg>
     </div>
     <h2>Enviado</h2>
-    <p>Tu respuesta ya aparece en pantalla.</p>
-    <button class="otro-btn" onclick="otraRespuesta()">Enviar otra</button>
+    <p>Tus 3 respuestas ya aparecen en pantalla.<br/>Gracias por participar.</p>
   </div>
 
   <script>
     var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxSkf9bUF95VsUK-asDP2z5LhDLlMHGxdMM48ebxxle2IjhZDyiUjY06yXlrOoyc-s/exec";
 
-    document.getElementById("input").addEventListener("keydown", function(e) {
+    document.addEventListener("keydown", function(e) {
       if (e.key === "Enter") enviar();
     });
 
     function enviar() {
-      var texto = document.getElementById("input").value.trim();
-      if (!texto) return;
+      var r1 = document.getElementById("r1").value.trim();
+      var r2 = document.getElementById("r2").value.trim();
+      var r3 = document.getElementById("r3").value.trim();
+
+      if (!r1 || !r2 || !r3) {
+        // Resalta los vacíos
+        [["r1", r1], ["r2", r2], ["r3", r3]].forEach(function(pair) {
+          var el = document.getElementById(pair[0]);
+          if (!pair[1]) { el.style.borderColor = "rgba(255,120,120,0.7)"; el.focus(); }
+          else { el.style.borderColor = "rgba(255,255,255,0.12)"; }
+        });
+        return;
+      }
+
       var btn = document.getElementById("btn");
       btn.disabled = true;
       btn.textContent = "Enviando...";
 
-      fetch(SCRIPT_URL, {
-        method: "POST",
-        body: JSON.stringify({ tipo: "lluvia", texto: texto, sesion: "experiencia-paciente" })
-      }).catch(function() {}).finally(function() {
+      var respuestas = [r1, r2, r3];
+      var promesas = respuestas.map(function(texto) {
+        return fetch(SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify({ tipo: "lluvia", texto: texto, sesion: "experiencia-paciente" })
+        }).catch(function() {});
+      });
+
+      Promise.allSettled(promesas).then(function() {
         document.getElementById("formCard").style.display = "none";
         document.getElementById("successCard").style.display = "flex";
       });
-    }
-
-    function otraRespuesta() {
-      document.getElementById("input").value = "";
-      document.getElementById("btn").disabled = false;
-      document.getElementById("btn").textContent = "Enviar";
-      document.getElementById("successCard").style.display = "none";
-      document.getElementById("formCard").style.display = "flex";
-      document.getElementById("input").focus();
     }
   </script>
 
