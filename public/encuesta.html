@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evaluación · Experiencia del Paciente</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    :root { --navy: #0C2D4E; --teal: #45C5BE; --teal-dark: #2BA8A2; --bg: #EEF2F7; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); color: var(--navy); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+
+    .header { background: linear-gradient(160deg, #081e35 0%, #0C2D4E 100%); padding: 32px 24px 28px; text-align: center; }
+    .header-badge { display: inline-block; background: rgba(69,197,190,0.15); border: 1px solid rgba(69,197,190,0.35); border-radius: 100px; padding: 4px 14px; font-size: 10px; font-weight: 700; color: var(--teal); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px; }
+    .header h1 { font-family: 'DM Serif Display', serif; font-size: 1.7rem; color: white; font-weight: 400; line-height: 1.25; }
+    .header p { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 8px; font-weight: 300; }
+
+    .form-body { padding: 28px 20px 48px; max-width: 540px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+    .block-label { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--teal-dark); margin-bottom: 16px; }
+    .card { background: white; border-radius: 16px; padding: 22px 20px; box-shadow: 0 2px 12px rgba(12,45,78,0.07); }
+    .question { font-size: 0.88rem; font-weight: 600; color: var(--navy); margin-bottom: 6px; line-height: 1.4; }
+    .question span { display: block; margin-top: 6px; margin-bottom: 14px; font-size: 0.78rem; font-weight: 500; color: var(--teal-dark); background: rgba(69,197,190,0.08); border: 1px solid rgba(69,197,190,0.2); border-radius: 8px; padding: 6px 10px; }
+
+    .stars { display: flex; gap: 10px; flex-wrap: wrap; }
+    .stars input { display: none; }
+    .stars label { width: 48px; height: 48px; border-radius: 12px; border: 1.5px solid rgba(12,45,78,0.15); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; color: rgba(12,45,78,0.4); cursor: pointer; transition: all 0.15s; }
+    .stars input:checked + label { background: var(--navy); border-color: var(--navy); color: white; }
+    .stars label:hover { border-color: var(--teal); color: var(--teal-dark); }
+
+    .options { display: flex; flex-direction: column; gap: 8px; }
+    .options input { display: none; }
+    .options label { padding: 11px 14px; border-radius: 10px; border: 1.5px solid rgba(12,45,78,0.12); font-size: 0.83rem; color: rgba(12,45,78,0.65); cursor: pointer; transition: all 0.15s; font-weight: 400; }
+    .options input:checked + label { background: rgba(69,197,190,0.1); border-color: var(--teal); color: var(--navy); font-weight: 600; }
+
+    textarea { width: 100%; border: 1.5px solid rgba(12,45,78,0.12); border-radius: 10px; padding: 12px 14px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: var(--navy); resize: vertical; min-height: 90px; outline: none; transition: border 0.15s; }
+    textarea:focus { border-color: var(--teal); }
+    textarea::placeholder { color: rgba(12,45,78,0.3); }
+
+    .btn-submit { width: 100%; padding: 16px; background: var(--navy); color: white; border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 700; cursor: pointer; transition: background 0.2s; letter-spacing: 0.02em; }
+    .btn-submit:hover { background: #163557; }
+    .btn-submit:disabled { background: rgba(12,45,78,0.3); cursor: not-allowed; }
+
+    .success { display: none; text-align: center; padding: 48px 24px; max-width: 400px; margin: 0 auto; }
+    .success-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(69,197,190,0.15); border: 2px solid var(--teal); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .success h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--navy); margin-bottom: 10px; }
+    .success p { font-size: 0.85rem; color: rgba(12,45,78,0.55); line-height: 1.6; }
+
+    .divider { height: 1px; background: rgba(12,45,78,0.07); margin: 16px 0; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="header-badge">Hospital Florence · Experiencia del Paciente</div>
+    <h1>Evaluación de la sesión</h1>
+    <p>Evaluación anónima · Hosperation</p>
+  </div>
+
+  <form id="encuesta" class="form-body">
+
+    <!-- BLOQUE 1: El contenido -->
+    <div>
+      <div class="block-label">El contenido</div>
+      <div class="card">
+        <div class="question">¿Qué tan claro fue el contenido presentado?<span>1 = poco claro &nbsp;·&nbsp; 5 = muy claro</span></div>
+        <div class="stars">
+          <input type="radio" name="claridad" id="c1" value="1" required><label for="c1">1</label>
+          <input type="radio" name="claridad" id="c2" value="2"><label for="c2">2</label>
+          <input type="radio" name="claridad" id="c3" value="3"><label for="c3">3</label>
+          <input type="radio" name="claridad" id="c4" value="4"><label for="c4">4</label>
+          <input type="radio" name="claridad" id="c5" value="5"><label for="c5">5</label>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="question">¿Qué tema te resultó más útil?</div>
+        <div class="options">
+          <input type="radio" name="tema" id="t1" value="Patient Journey y momentos de la verdad" required>
+          <label for="t1">Patient Journey y momentos de la verdad</label>
+          <input type="radio" name="tema" id="t2" value="Empatía clínica y el poder de las palabras">
+          <label for="t2">Empatía clínica y el poder de las palabras</label>
+          <input type="radio" name="tema" id="t3" value="Método Florence (manejo de paciente molesto)">
+          <label for="t3">Método Florence — manejo de paciente molesto</label>
+          <input type="radio" name="tema" id="t4" value="Patient Centric y pequeños detalles">
+          <label for="t4">Patient Centric y pequeños detalles</label>
+          <input type="radio" name="tema" id="t5" value="Las dinámicas y actividades">
+          <label for="t5">Las dinámicas y actividades</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOQUE 2: La dinámica -->
+    <div>
+      <div class="block-label">La dinámica</div>
+      <div class="card">
+        <div class="question">¿Cómo calificarías el ritmo y la dinámica de la sesión?<span>1 = requiere mejora &nbsp;·&nbsp; 5 = excelente</span></div>
+        <div class="stars">
+          <input type="radio" name="dinamica" id="d1" value="1" required><label for="d1">1</label>
+          <input type="radio" name="dinamica" id="d2" value="2"><label for="d2">2</label>
+          <input type="radio" name="dinamica" id="d3" value="3"><label for="d3">3</label>
+          <input type="radio" name="dinamica" id="d4" value="4"><label for="d4">4</label>
+          <input type="radio" name="dinamica" id="d5" value="5"><label for="d5">5</label>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="question">¿Qué actividad fue la más impactante para ti?</div>
+        <div class="options">
+          <input type="radio" name="actividad" id="a1" value="Lluvia de ideas del restaurante" required>
+          <label for="a1">Lluvia de ideas — el restaurante</label>
+          <input type="radio" name="actividad" id="a2" value="Guía ciega con el vaso de agua">
+          <label for="a2">Guía ciega con el vaso de agua</label>
+          <input type="radio" name="actividad" id="a3" value="La torre — trabajo en equipo">
+          <label for="a3">La torre — trabajo en equipo</label>
+          <input type="radio" name="actividad" id="a4" value="Los ejemplos y casos en pantalla">
+          <label for="a4">Los ejemplos y casos en pantalla</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOQUE 3: Experiencia en tu área -->
+    <div>
+      <div class="block-label">Experiencia del paciente en tu área</div>
+      <div class="card">
+        <div class="question">¿Cómo calificarías la experiencia del paciente en tu área actualmente?<span>1 = necesita atención urgente &nbsp;·&nbsp; 5 = muy sólida</span></div>
+        <div class="stars">
+          <input type="radio" name="experiencia" id="e1" value="1" required><label for="e1">1</label>
+          <input type="radio" name="experiencia" id="e2" value="2"><label for="e2">2</label>
+          <input type="radio" name="experiencia" id="e3" value="3"><label for="e3">3</label>
+          <input type="radio" name="experiencia" id="e4" value="4"><label for="e4">4</label>
+          <input type="radio" name="experiencia" id="e5" value="5"><label for="e5">5</label>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="question">¿Qué aspecto de la experiencia del paciente necesita más atención en el hospital?</div>
+        <div class="options">
+          <input type="radio" name="aspecto" id="asp1" value="La comunicación con el paciente y su familia" required>
+          <label for="asp1">La comunicación con el paciente y su familia</label>
+          <input type="radio" name="aspecto" id="asp2" value="El manejo de los tiempos de espera">
+          <label for="asp2">El manejo de los tiempos de espera</label>
+          <input type="radio" name="aspecto" id="asp3" value="La coordinación entre departamentos">
+          <label for="asp3">La coordinación entre departamentos</label>
+          <input type="radio" name="aspecto" id="asp4" value="El primer contacto y la bienvenida">
+          <label for="asp4">El primer contacto y la bienvenida</label>
+          <input type="radio" name="aspecto" id="asp5" value="El proceso de alta y seguimiento">
+          <label for="asp5">El proceso de alta y seguimiento</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOQUE 4: Aplicación -->
+    <div class="card">
+      <div class="question">¿Qué es lo primero que vas a aplicar cuando regreses a tu área?<span>Escribe una acción concreta</span></div>
+      <textarea name="accion" placeholder="Ej: Voy a presentarme con el paciente antes de realizar cualquier procedimiento..."></textarea>
+    </div>
+
+    <!-- Comentario libre -->
+    <div class="card">
+      <div class="question">Comentarios adicionales<span>Opcional</span></div>
+      <textarea name="comentario" placeholder="Cualquier observación que desees compartir..."></textarea>
+    </div>
+
+    <button type="submit" class="btn-submit" id="btn">Enviar evaluación</button>
+  </form>
+
+  <div class="success" id="success">
+    <div class="success-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#45C5BE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </div>
+    <h2>Muchas gracias.</h2>
+    <p>Tu evaluación ha sido registrada.<br/>La retroalimentación nos ayuda a mejorar continuamente.</p>
+  </div>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxSkf9bUF95VsUK-asDP2z5LhDLlMHGxdMM48ebxxle2IjhZDyiUjY06yXlrOoyc-s/exec";
+
+    document.getElementById("encuesta").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById("btn");
+      btn.disabled = true;
+      btn.textContent = "Enviando...";
+
+      const fd = new FormData(e.target);
+      const data = {
+        tipo:        "encuesta",
+        sesion:      "experiencia-paciente-florence",
+        claridad:    fd.get("claridad"),
+        tema:        fd.get("tema"),
+        dinamica:    fd.get("dinamica"),
+        actividad:   fd.get("actividad"),
+        experiencia: fd.get("experiencia"),
+        aspecto:     fd.get("aspecto"),
+        accion:      fd.get("accion") || "",
+        comentario:  fd.get("comentario") || "",
+      };
+
+      try {
+        await fetch(SCRIPT_URL, { method: "POST", body: JSON.stringify(data) });
+      } catch (_) {}
+
+      document.getElementById("encuesta").style.display = "none";
+      document.getElementById("success").style.display = "block";
+      window.scrollTo(0, 0);
+    });
+  </script>
+
+</body>
+</html>

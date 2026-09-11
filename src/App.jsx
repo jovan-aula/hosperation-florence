@@ -31,6 +31,7 @@ import S24 from './slides/S24_PatientCentric'
 import S25 from './slides/S25_PequenosDetalles'
 import S26 from './slides/S26_ReflexionFinal'
 import S27 from './slides/S27_PortadaCierre'
+import S28 from './slides/S28_Encuesta'
 
 const slides = [
   S01, S03, S04,
@@ -39,7 +40,7 @@ const slides = [
   S14, S15,
   S16, S17, S18, S19, S20, S21,
   S22, S23,
-  S24, S25, S26, S27,
+  S24, S25, S26, S27, S28,
 ]
 
 export default function App() {
