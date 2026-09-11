@@ -7,10 +7,10 @@ const fade = (delay = 0) => ({
 })
 
 const preguntas = [
-  { num: '1', texto: '¿Qué pasó cuando tuvieron que unir las cuatro torres? ¿Qué fue lo más difícil?' },
-  { num: '2', texto: '¿Algún equipo quiso "imponer" su estructura? ¿Cómo lo resolvieron?' },
-  { num: '3', texto: '¿Qué departamento del hospital les parece que cuesta más trabajo integrar en la práctica?' },
-  { num: '4', texto: '¿De quién es la responsabilidad de que la torre aguante? ¿Del que la construyó o del que la une?' },
+  { num: '1', texto: '¿Qué estrategia usó tu equipo para construirla? ¿Todos participaron o alguien lideró?' },
+  { num: '2', texto: '¿Qué tan sólida quedó la torre? ¿Qué la hizo fuerte o débil?' },
+  { num: '3', texto: '¿En qué se parece construir esta torre a trabajar en tu área del hospital?' },
+  { num: '4', texto: '¿Qué necesitaría tu equipo para que la experiencia del paciente sea tan sólida como la mejor torre de hoy?' },
 ]
 
 export default function S23_TorreDebriefing() {
