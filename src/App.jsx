@@ -9,8 +9,11 @@ import S03 from './slides/S03_ReglaDelJuego'
 import S04 from './slides/S04_Objetivos'
 import S05 from './slides/S05_QRRestaurante'
 import S06 from './slides/S06_LluviaDisplay'
+import S06b from './slides/S06b_QuePasaSiFalla'
 import S07 from './slides/S07_PivotPaciente'
-import S08 from './slides/S08_ServicioVsExperiencia'
+import S08a from './slides/S08a_ServicioDistincion'
+import S08b from './slides/S08b_ServicioEmociones'
+import S08c from './slides/S08c_ServicioEjemplos'
 import S09 from './slides/S09_VulnerabilidadPaciente'
 import S10 from './slides/S10_QuienesSon'
 import S11b from './slides/S11b_PatientJourneyConcepto'
@@ -19,28 +22,27 @@ import S12 from './slides/S12_MomentosVerdad'
 import S13 from './slides/S13_QueEvalua'
 import S14 from './slides/S14_GuiaCiegaInstrucciones'
 import S15 from './slides/S15_GuiaCiegaDebriefing'
+import S15b from './slides/S15b_PuenteEmpatia'
 import S16 from './slides/S16_EmpatiaClinica'
 import S17 from './slides/S17_PoderPalabras'
 import S18 from './slides/S18_InformarVsComunicar'
 import S19 from './slides/S19_Regla3Pasos'
+import S19b from './slides/S19b_PuenteEspera'
+import S19c from './slides/S19c_EntornoExperiencia'
 import S20 from './slides/S20_EsperaExperiencia'
-import S21 from './slides/S21_MetodoFlorence'
+import S21b from './slides/S21b_PuenteTorre'
 import S22 from './slides/S22_TorreInstrucciones'
 import S23 from './slides/S23_TorreDebriefing'
-import S24 from './slides/S24_PatientCentric'
-import S25 from './slides/S25_PequenosDetalles'
-import S26 from './slides/S26_ReflexionFinal'
-import S27 from './slides/S27_PortadaCierre'
-import S28 from './slides/S28_Encuesta'
+import S24 from './slides/S24_Cierre'
 
 const slides = [
   S01, S03, S04,
-  S05, S06, S07,
-  S08, S09, S10, S11b, S11, S12, S13,
-  S14, S15,
-  S16, S17, S18, S19, S20, S21,
-  S22, S23,
-  S24, S25, S26, S27, S28,
+  S05, S06, S06b, S07,
+  S08a, S08b, S08c, S09, S10, S11b, S11, S12, S13,
+  S14, S15, S15b,
+  S16, S17, S18, S19, S19b, S20, S19c,
+  S21b, S22, S23,
+  S24,
 ]
 
 export default function App() {
