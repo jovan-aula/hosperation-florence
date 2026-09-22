@@ -39,7 +39,7 @@ export default function S08b_ServicioEmociones() {
             fontWeight: 400, color: '#0C2D4E',
             lineHeight: 1.2, margin: '0.5rem 0 0',
           }}>
-            Cada acción produce una emoción.
+            Al final, estamos hablando de experiencias.
           </h2>
           <div style={{ width: '48px', height: '3px', background: '#45C5BE', borderRadius: '2px', marginTop: '0.8rem' }} />
         </motion.div>
